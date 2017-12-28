@@ -18,14 +18,14 @@ python3 test/boardTest.py
 
 
 echo "Starting server in background"
-python3 run.py &
-SERVER_PID=$!
+python3 run.py # &
+# SERVER_PID=$!
 
 sleep 5
 
-read -p "Press any key to terminate shell script... \n" -n1 -s
+# read -p "Press any key to terminate shell script... \n" -n1 -s
 
 
-echo "terminating server"
-kill $SERVER_PID
+# echo "terminating server"
+# kill $SERVER_PID
 

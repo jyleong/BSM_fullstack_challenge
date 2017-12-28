@@ -18,12 +18,6 @@ const NavBar = (props) => (
         <LinkContainer to="/about">
           <NavItem eventKey={2}>About</NavItem>
         </LinkContainer>
-        <LinkContainer to="/status">
-          <NavItem eventKey={3}>User Status</NavItem>
-        </LinkContainer>
-        <LinkContainer to="/maps">
-          <NavItem eventKey={3}>View Maps</NavItem>
-        </LinkContainer>
       </Nav>
       
     </Navbar.Collapse>

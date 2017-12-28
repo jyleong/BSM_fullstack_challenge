@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import UsersList from './components/UsersList';
 import AddUser from './components/AddUser';
 import About from './components/About';
 import Nav from './components/Nav';
-import Form from './components/Form';
+import Board from './components/Board';
 import Message from './components/Message';
+import Button from './components/Button';
 import {Route, Switch} from 'react-router-dom';
 
 
@@ -15,17 +15,14 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      users: [],
-      username: "",
-      email: "",
-      title: "FullStack - Challenge",
-      isAuthenticated: false,
+      board: [],
+      title: "FullStack Sudoku Challenge",
       messageType: null,
       messageName: null
     }
   }
   componentDidMount() {
-    this.getUsers();
+    this.getPuzzle();
   }
   createMessage(name='Sanity Check', type='success') {
     this.setState({
@@ -42,11 +39,16 @@ class App extends Component {
       messageType: null
     })
   }
-  getUsers() {
-    axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
+  getPuzzle() {
+    axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`)
     .then((res) => {
       console.log(res.data)
-      this.setState({"users": res.data});
+      var oneDBoard = res.data
+      // format board to double array here
+      var twoDBoard = [];
+      while(oneDBoard.length) twoDBoard.push(oneDBoard.splice(0,9));
+      console.log(twoDBoard);
+      this.setState({"board": twoDBoard});
       // will pass in the state here from request, to UsersList component
     })
     .catch((err) => { console.log(err); })
@@ -86,18 +88,14 @@ class App extends Component {
               <br/>
               <Switch>
                 <Route exact path='/' render={() => (
-                  <UsersList
-                    users={this.state.users}
-                  />
+                  <div>
+                    <Board
+                      board={this.state.board}
+                    />
+                    <Button onClick={this.getPuzzle.bind(this)}/>
+                  </div>
                 )} />
                 <Route exact path='/about' component={About}/>
-                <Route exact path='/maps' render={() => (
-                  <Form
-                    formType={'map'}
-                    formData={this.state.formData}
-                    createMessage={this.createMessage.bind(this)}
-                  />
-                )} />
               </Switch>
             </div>
           </div>
