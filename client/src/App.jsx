@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-import AddUser from './components/AddUser';
 import About from './components/About';
 import Nav from './components/Nav';
 import Board from './components/Board';
 import Message from './components/Message';
 import Button from './components/Button';
+import { BeatLoader } from 'react-spinners';
 import {Route, Switch} from 'react-router-dom';
 
 
@@ -18,7 +18,8 @@ class App extends Component {
       board: [],
       title: "FullStack Sudoku Challenge",
       messageType: null,
-      messageName: null
+      messageName: null,
+      isLoading: false
     }
   }
   componentDidMount() {
@@ -40,6 +41,8 @@ class App extends Component {
     })
   }
   getPuzzle() {
+    this.setState({isLoading: true});
+
     axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`)
     .then((res) => {
       console.log(res.data)
@@ -48,10 +51,19 @@ class App extends Component {
       var twoDBoard = [];
       while(oneDBoard.length) twoDBoard.push(oneDBoard.splice(0,9));
       console.log(twoDBoard);
-      this.setState({"board": twoDBoard});
+      this.setState({
+        board: twoDBoard,
+        isLoading: false
+      });
+
       // will pass in the state here from request, to UsersList component
     })
-    .catch((err) => { console.log(err); })
+    .catch((err) => { 
+      console.log(err); 
+      this.setState({isLoading: false});
+    })
+
+
   }
   handleChange(event) {
     const obj = {};
@@ -89,10 +101,17 @@ class App extends Component {
               <Switch>
                 <Route exact path='/' render={() => (
                   <div>
+                  <BeatLoader
+                    color={'#123abc'} 
+                    loading={this.state.isLoading} 
+                  /> 
+                  {!this.state.isLoading &&
                     <Board
                       board={this.state.board}
                     />
+                  }
                     <Button onClick={this.getPuzzle.bind(this)}/>
+                    
                   </div>
                 )} />
                 <Route exact path='/about' component={About}/>
