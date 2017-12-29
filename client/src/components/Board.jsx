@@ -32,6 +32,7 @@ class Board extends Component {
 			}
 
 		}, function() {console.log(this.state)});
+		this.props.getSelectedCellToRequest(row,column, data);
 
 	}
 	render() {

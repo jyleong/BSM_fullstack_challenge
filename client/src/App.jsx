@@ -19,7 +19,9 @@ class App extends Component {
       title: "FullStack Sudoku Challenge",
       messageType: null,
       messageName: null,
-      isLoading: false
+      isLoading: false,
+      currentCell: null,
+      hasSelectedCell: false
     }
   }
   componentDidMount() {
@@ -40,34 +42,74 @@ class App extends Component {
       messageType: null
     })
   }
-  getPuzzle() {
-    this.setState({isLoading: true});
+  getSelectedCellToRequest(row, column, data) {
+    this.setState({
+      currentCell: {
+        row: row,
+        col: column,
+        value: data
+      },
+      hasSelectedCell: true
 
-    axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`)
-    .then((res) => {
-      var oneDBoard = res.data
-      // format board to double array here
-      var twoDBoard = [];
-      while(oneDBoard.length) twoDBoard.push(oneDBoard.splice(0,9));
-      console.log(twoDBoard);
-      this.setState({
-        board: twoDBoard,
-        isLoading: false
-      });
-
-      // will pass in the state here from request, to UsersList component
-    })
-    .catch((err) => { 
-      console.log(err); 
-      this.setState({isLoading: false});
-    })
-
+    }, function() {
+      console.log("Inside App.jsx");
+      console.log(this.state)
+    });
 
   }
-  handleChange(event) {
-    const obj = {};
-    obj[event.target.name] = event.target.value;
-    this.setState(obj);
+  getPuzzle() {
+    this.setState({isLoading: true});
+    if (this.state.hasSelectedCell) {
+      // expect a new board with one same cell
+      var url = `${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`;
+      var data = this.state.currentCell;
+      axios.post(url, data)
+      .then((res) => {
+        var oneDBoard = res.data
+        // format board to double array here
+        var twoDBoard = [];
+        while(oneDBoard.length) twoDBoard.push(oneDBoard.splice(0,9));
+        console.log(twoDBoard);
+        this.setState({
+          board: twoDBoard,
+          isLoading: false,
+          hasSelectedCell: false
+        });
+
+        // will pass in the state here from request, to UsersList component
+      })
+      .catch((err) => { 
+        console.log(err); 
+        this.setState({
+          isLoading: false,
+          hasSelectedCell: false
+        });
+      })
+    }
+    else {
+      axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`)
+      .then((res) => {
+        var oneDBoard = res.data
+        // format board to double array here
+        var twoDBoard = [];
+        while(oneDBoard.length) twoDBoard.push(oneDBoard.splice(0,9));
+        console.log(twoDBoard);
+        this.setState({
+          board: twoDBoard,
+          isLoading: false,
+          hasSelectedCell: false
+        });
+
+        // will pass in the state here from request, to UsersList component
+      })
+      .catch((err) => { 
+        console.log(err); 
+        this.setState({
+          isLoading: false,
+          hasSelectedCell: false
+        });
+      })
+    }
   }
   render() {
     return (
@@ -94,6 +136,7 @@ class App extends Component {
                   {!this.state.isLoading &&
                     <Board
                       board={this.state.board}
+                      getSelectedCellToRequest={this.getSelectedCellToRequest.bind(this)} 
                     />
                   }
                     <Button onClick={this.getPuzzle.bind(this)}/>

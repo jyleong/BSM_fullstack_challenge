@@ -5,7 +5,6 @@ import time
 import app_file
 from server.app_file import db
 from server.sudoku.board import Board
-from server import models
 from flask import jsonify, request
 app = app_file.create_app(app_file.config_name)
 boardService = Board()
