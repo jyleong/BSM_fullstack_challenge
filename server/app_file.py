@@ -15,7 +15,7 @@ from server.config import app_config
 # db init
 
 db = SQLAlchemy()
-config_name = os.environ['FLASK_CONFIG']
+config_name = 'development'
 config = app_config[config_name]
 
 def create_app(config_name):
@@ -23,11 +23,6 @@ def create_app(config_name):
     CORS(app)
     app.config.from_object(app_config[config_name])
     app.secret_key = "s3cr3t"  # need for flask for some reason
-
-    SQLALCHEMY_DATABASE_URI = os.environ['development_db']
-    if config_name =="production":
-        SQLALCHEMY_DATABASE_URI = os.environ['production_db']
-    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     
     Bootstrap(app)
     db.init_app(app)
