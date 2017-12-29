@@ -45,7 +45,6 @@ class App extends Component {
 
     axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`)
     .then((res) => {
-      console.log(res.data)
       var oneDBoard = res.data
       // format board to double array here
       var twoDBoard = [];
@@ -70,19 +69,6 @@ class App extends Component {
     obj[event.target.name] = event.target.value;
     this.setState(obj);
   }
-  addUser(event) {
-    event.preventDefault();
-    const data = {
-      username: this.state.username,
-      email: this.state.email
-    }
-    axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`, data)
-      .then((res) => {
-        this.getUsers();
-        this.setState({ username: '', email: '' });
-      })
-      .catch((err) => { console.log(err); })
-    }
   render() {
     return (
       <div>

@@ -1,20 +1,38 @@
 import React, {Component} from 'react';
 import { Table } from 'react-bootstrap';
-
+import CustomCell from './CustomCell';
 // this is a component when given props from parent, pressents the information
 // props are immutable
 
 class Board extends Component {
 	constructor (props) {
 		super(props)
+		this.state = {
+			selectedCell: {
+				row: '',
+				col: '',
+				value: ''
+			}
+		}
 	}
 	componentDidMount() {
-	    //this.clearForm();
+	    
 	}
 	componentWillReceiveProps(nextProps) {
 	    if (this.props.formType !== nextProps.formType) {
-    		//this.clearForm();
+    		
 	    }
+	}
+	onSelectCell(row, column, data) {
+		this.setState({
+			selectedCell: {
+				row: row,
+				col: column,
+				value: data
+			}
+
+		}, function() {console.log(this.state)});
+
 	}
 	render() {
 		return (
@@ -26,18 +44,25 @@ class Board extends Component {
 			    </thead>
 			    <tbody>
 			      {
-			        this.props.board.map((row) => {
+			        this.props.board.map((row, index) => {
 			          return (
 			            <tr>
-			              <td>{row[0]}</td>
-			              <td>{row[1]}</td>
-			              <td>{row[2]}</td>
-			              <td>{row[3]}</td>
-			              <td>{row[4]}</td>
-			              <td>{row[5]}</td>
-			              <td>{row[6]}</td>
-			              <td>{row[7]}</td>
-			              <td>{row[8]}</td>
+			            {
+			            	row.map((cell, i) => {
+			            		return (
+				            	<CustomCell 
+					              	onSelectCell={this.onSelectCell.bind(this)} 
+						            row={index}
+						            column={i}
+						            data={cell}
+						            isSelected={index === this.state.selectedCell.row 
+						            	&& 
+						            	i === this.state.selectedCell.col}
+					            />
+				             )
+			            	}
+			            	)
+			            }
 			            </tr>
 			          )
 			        })
