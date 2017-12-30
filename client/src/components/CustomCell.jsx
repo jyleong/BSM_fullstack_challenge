@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 var tdStyle = {
-  color: 'red'
+  background: 'yellow'
 };
 
 class CustomCell extends Component {

@@ -71,8 +71,8 @@ class Board(object):
         self.board = self.make_random_board(m=3)
         return self.board
 
-    def makeBoardWithParam(self, m=3, row=1, col=1, value=1):
-        self.board = self.make_board_param(m, row, col, value)
+    def emptyBoardWithParam(self, m=3, row=1, col=1, value=1):
+        self.board = self.empty_board_with_param(m, row, col, value)
         return self.board
 
     '''
@@ -113,7 +113,7 @@ class Board(object):
         return search()
 
 
-    def make_board_param(self, m=3, row=1, col=1, value=1):
+    def empty_board_with_param(self, m=3, row=1, col=1, value=1):
         """Return a solved filled m**2 x m**2 Sudoku board.
             with board[row][col] = value
         """
@@ -136,7 +136,7 @@ if __name__ == "__main__":
     # execute only if run as a script
     boardObj = Board()
     solver = SolveBoard()
-    boardOneVal = boardObj.makeBoardWithParam(row=3, col=3, value=9)
+    boardOneVal = boardObj.emptyBoardWithParam(row=3, col=3, value=9)
     board = solver.solveSudoku(boardOneVal)
     # boardObj.makeBoard()
     solvedboard = boardObj.convertBoardtoArr(board)

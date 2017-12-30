@@ -5,10 +5,10 @@ echo "Setting up, run tests and build server"
 serverDir=$(pwd)
 python_path=$serverDir:$serverDir/server
 export PYTHONPATH=$python_path
-source bsmfs.env
+export REACT_APP_USERS_SERVICE_URL=http://localhost:5000
 virtualenv bsmPythonEnv
 
-source bsmPythonEnv/bin/activate
+. bsmPythonEnv/bin/activate
 pip3 install -r server/requirements.txt
 
 cd client

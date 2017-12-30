@@ -44,7 +44,7 @@ class TestBoardMethods(unittest.TestCase):
         self.assertTrue(check_sudoku(boardObj))
 
     def test_solve_board(self):
-        boardObj = self.BoardService.makeBoardWithParam(m=3, row=1, col=1, value=1)
+        boardObj = self.BoardService.emptyBoardWithParam(m=3, row=1, col=1, value=1)
         solvedBoard = self.SolveService.solveSudoku(boardObj)
         boardArr = self.BoardService.convertBoardtoArr(boardObj)
         self.assertEqual(len(solvedBoard), 9)

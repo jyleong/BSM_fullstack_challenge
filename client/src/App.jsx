@@ -77,7 +77,6 @@ class App extends Component {
                     hasSelectedCell: false
                 });
 
-            // will pass in the state here from request, to UsersList component
             })
             .catch((err) => { 
                 console.log(err); 
@@ -97,7 +96,6 @@ class App extends Component {
                         hasSelectedCell: false
                     });
 
-                // will pass in the state here from request, to UsersList component
                 })
                 .catch((err) => { 
                     console.log(err); 
@@ -120,8 +118,8 @@ class App extends Component {
                 removeMessage={this.removeMessage.bind(this)}
               />
             }
-                <div className="row">
-                    <div className="col-md-6">
+                <div className="row text-center">
+                    <div className="col-lg-12">
                         <br/>
                         <Switch>
                             <Route exact path='/' render={() => (

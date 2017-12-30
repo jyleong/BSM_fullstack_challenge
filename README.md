@@ -4,15 +4,20 @@ Full stack bare bones: front end in Reactjs, server, database, REST API in flask
 ### Environment Setup
 
 Install node and npm:
+
+```
+Unix:
+> sudo apt-get install nodejs
+> sudo apt-get install npm
+```
+
 Install create-react-app
-Install react via npm
-navigate to client folder, install package.json
+```
+> npm install -g create-react-app
+```
+Navigate to client folder, install package.json
 ```
 npm install
-```
-Start front end
-```
-npm start
 ```
 
 Make sure your machine has updated python3...
@@ -35,7 +40,8 @@ or on unix
 > sudo apt-get install python-virtualenv -y
 ```
 
-# Run Server:
+Navigate to root directory
+### Easily run client and server:
 ```
 > sh build.sh
 ```
