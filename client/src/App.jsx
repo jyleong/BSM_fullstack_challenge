@@ -64,7 +64,7 @@ class App extends Component {
     }
     getPuzzle() {
         this.setState({isLoading: true});
-        var url = `${process.env.REACT_APP_USERS_SERVICE_URL}/sudoku/board`;
+        var url = `sudoku/board`;
         if (this.state.hasSelectedCell) {
             // expect a new board with one same cell
             var data = this.state.currentCell;
