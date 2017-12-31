@@ -1,47 +1,21 @@
 # BSM Full Stack Challenge
-Full stack bare bones: front end in Reactjs, server, database, REST API in flask
+
+## Full stack bare bones:
+ - Front end is Reactjs, 
+ - Backend/server, database, REST API in Flask
+ - Reverse Proxy using Nginx
+ - Docker to deploy app
 
 ### Environment Setup
+All you need is docker to run challenge application!
 
-Install node and npm:
+Install docker and docker-compose
 
+After docker is installed....
+Navigate to root of directory:
 ```
-Unix:
-> sudo apt-get install nodejs
-> sudo apt-get install npm
-```
-
-Install create-react-app
-```
-> npm install -g create-react-app
-```
-Navigate to client folder, install package.json
-```
-npm install
+> docker-compose build
+> docker-compose up
 ```
 
-Make sure your machine has updated python3...
-Install python3:
-```
-MacOsX
-> brew upgrade python3
-Unix
-> sudo apt-get update
-> sudo apt-get -y upgrade
-> sudo apt-get install -y python3-pip
-```
-
-Install and configure virtualenv:
-```
-via pip
-> pip install virtualenv
-
-or on unix
-> sudo apt-get install python-virtualenv -y
-```
-
-Navigate to root directory
-### Easily run client and server:
-```
-> sh build.sh
-```
+Go to browser to view app with at localhost:8080

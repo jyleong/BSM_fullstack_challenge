@@ -1,5 +1,7 @@
 import unittest
 import itertools
+import sys
+sys.path.insert(0, '..')
 
 from server.sudoku.board import Board, SolveBoard
 
