@@ -15,13 +15,9 @@ class Board extends Component {
             }
         }
     }
-    componentDidMount() {
-        
+    componentDidMount() {      
     }
     componentWillReceiveProps(nextProps) {
-        if (this.props.formType !== nextProps.formType) {
-
-        }
     }
     onSelectCell(row, column, data) {
     	this.setState({

@@ -39,7 +39,10 @@ class TestBoardMethods(unittest.TestCase):
         boardArr = self.BoardService.convertBoardtoArr(boardObj)
         self.assertEqual(len(boardObj), 9)
         self.assertEqual(len(boardObj[0]), 9)
+        self.assertTrue((0 not in boardArr))
+        self.assertTrue(isinstance(boardArr, list))
         self.assertEqual(len(boardArr), 81)
+
 
     def test_board_correctness(self):
         boardObj = self.BoardService.makeBoard()
@@ -51,6 +54,7 @@ class TestBoardMethods(unittest.TestCase):
         boardArr = self.BoardService.convertBoardtoArr(boardObj)
         self.assertEqual(len(solvedBoard), 9)
         self.assertEqual(len(solvedBoard[0]), 9)
+        self.assertTrue((0 not in boardArr))
         self.assertEqual(len(boardArr), 81)
         self.assertTrue(check_sudoku(boardObj))
 
