@@ -25,7 +25,9 @@ class SolveBoard(object):
         # no unassigned position is found, puzzle solved
         if row == -1 and col == -1:
             return True
-        for num in [1,2,3,4,5,6,7,8,9]:
+        numbers = list(range(1, 10))
+        random.shuffle(numbers)
+        for num in numbers:
             if self.isSafe(row, col, num):
                 self.board[row][col] = num
                 if self.solve():
